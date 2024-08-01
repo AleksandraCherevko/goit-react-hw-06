@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import ContactList from "../ContactList/ContactList";
 
 export default function Contact() {
   const dispatch = useDispatch();
@@ -8,11 +9,5 @@ export default function Contact() {
     dispatch({ type: "contacts/contact", payload: 10 });
   };
 
-  return (
-    <div className="contact-card">
-      <p>{contacts}</p>
-      <p>Potter</p>
-      <button onClick={handleContact}>Delete</button>
-    </div>
-  );
+  return <ContactList />;
 }
