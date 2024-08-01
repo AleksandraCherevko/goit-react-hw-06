@@ -21,30 +21,30 @@
 //     </div>
 //   );
 
-
-
-
-
 import { useSelector, useDispatch } from "react-redux";
-import { contactList, deleteContact } from "../../redux/store";
+import { deposit, withraw, reset } from "../../redux/store";
 
-export default function Contact() {
+export default function Balance() {
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.contacts.value);
+  const credits = useSelector((state) => state.balance.value);
 
   const handleDeposit = () => {
-    dispatch(contactList(5));
+    dispatch(deposit(10));
   };
 
-  const handleDelete = () => {
-    dispatch(deleteContact());
+  const handleWithraw = () => {
+    dispatch(withraw(5));
   };
 
+  const handleReset = () => {
+    dispatch(reset());
+  };
   return (
     <div>
-      <p>Contact: {list}</p>
-      <button onClick={handleDeposit}>Add</button>
-      <button onClick={handleDelete}>Delete</button>
+      <p>Balance: {credits} credits</p>
+      <button onClick={handleDeposit}>Deposit credits</button>
+      <button onClick={handleWithraw}>Withraw</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 }
