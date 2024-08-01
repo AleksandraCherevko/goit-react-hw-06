@@ -1,7 +1,7 @@
 body {
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  background-color: #f8f9fa;
-  color: #495057;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
   margin: 0;
   padding: 0;
   display: flex;
@@ -11,58 +11,60 @@ body {
 }
 
 h1 {
-  color: #343a40;
-  text-align: center;
-  margin-bottom: 20px;
+  color: #000;
 }
 
 .container {
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
+  background-color: #fff;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 30px;
-  width: 400px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: #333;
   color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  box-sizing: border-box;
 }
 
+button:hover {
+  background-color: #555;
+}
 
+p {
+  margin: 5px 0;
+}
 
 .contact-card {
-  background-color: #f1f3f5;
-  border: 1px solid #e9ecef;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 15px;
+  padding: 10px;
   margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .contact-card button {
   width: auto;
-  padding: 5px 10px;
-  background-color: #dc3545;
+  margin-top: 0;
+  background-color: #d9534f;
   border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .contact-card button:hover {
-  background-color: #c82333;
+  background-color: #c9302c;
 }
