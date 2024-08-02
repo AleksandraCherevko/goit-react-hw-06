@@ -21,30 +21,54 @@
 //     </div>
 //   );
 
-import { useSelector, useDispatch } from "react-redux";
-import { deposit, withraw, reset } from "../../redux/store";
+// import { useSelector, useDispatch } from "react-redux";
+// import { deposit, withraw, reset } from "../../redux/contactsSlice";
 
-export default function Balance() {
-  const dispatch = useDispatch();
-  const credits = useSelector((state) => state.balance.value);
+// export default function Balance() {
+//   const dispatch = useDispatch();
+//   const credits = useSelector((state) => state.balance.value);
 
-  const handleDeposit = () => {
-    dispatch(deposit(10));
-  };
+//   const handleDeposit = () => {
+//     dispatch(deposit(value));
+//   };
 
-  const handleWithraw = () => {
-    dispatch(withraw(5));
-  };
+//   const handleWithraw = () => {
+//     dispatch(withraw(5));
+//   };
 
-  const handleReset = () => {
-    dispatch(reset());
-  };
+//   const handleReset = () => {
+//     dispatch(reset());
+//   };
+//   return (
+//     <div>
+//       <p>Balance: {credits} credits</p>
+//       <button onClick={handleDeposit}>Deposit credits</button>
+//       <button onClick={handleWithraw}>Withraw</button>
+//       <button onClick={handleReset}>Reset</button>
+//     </div>
+//   );
+// }
+
+// export default function Contact({ data: { id, name, number } }) {
+//   return (
+//     <div>
+//       <div>
+//         <p>{name}</p>
+//         <p>{number}</p>
+//       </div>
+//       <button>Delete</button>
+//     </div>
+//   );
+// }
+
+export default function Contact({ data: { id, name, number }, onDelete }) {
   return (
     <div>
-      <p>Balance: {credits} credits</p>
-      <button onClick={handleDeposit}>Deposit credits</button>
-      <button onClick={handleWithraw}>Withraw</button>
-      <button onClick={handleReset}>Reset</button>
+      <div>
+        <p>{name}</p>
+        <p>{number}</p>
+      </div>
+      <button onClick={onDelete}>Delete</button>
     </div>
   );
 }
