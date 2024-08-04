@@ -1,74 +1,24 @@
-// import css from "./Contact.module.css";
-// import { useDispatch, useSelector } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
+import { useDispatch } from "react-redux";
+import css from "./Contact.module.css";
 
-// export default function Contact({ data: { id, name, number }, onDelete }) {
-//   const dispatch = useDispatch();
-//   const contacts = useSelector((state) => state.contacts.value);
+export default function Contact({ name, phoneNumber, id }) {
+  const dispatch = useDispatch();
 
-//   const handleDeposit = () => {
-//     dispatch("5");
-//   };
+  const handleDelete = () => {
+    dispatch(deleteContact(id));
+  };
 
-//   return (
-//     <div className={css.contactsCard}>
-//       <div className={css.contactsCardWrap}>
-//         <p className={css.contactsName}>{contacts}</p>
-//         <p>{number}</p>
-//         <button className={css.contactsBtn} onClick={handleDeposit}>
-//           Delete
-//         </button>
-//       </div>
-//     </div>
-//   );
-
-// import { useSelector, useDispatch } from "react-redux";
-// import { deposit, withraw, reset } from "../../redux/contactsSlice";
-
-// export default function Balance() {
-//   const dispatch = useDispatch();
-//   const credits = useSelector((state) => state.balance.value);
-
-//   const handleDeposit = () => {
-//     dispatch(deposit(value));
-//   };
-
-//   const handleWithraw = () => {
-//     dispatch(withraw(5));
-//   };
-
-//   const handleReset = () => {
-//     dispatch(reset());
-//   };
-//   return (
-//     <div>
-//       <p>Balance: {credits} credits</p>
-//       <button onClick={handleDeposit}>Deposit credits</button>
-//       <button onClick={handleWithraw}>Withraw</button>
-//       <button onClick={handleReset}>Reset</button>
-//     </div>
-//   );
-// }
-
-// export default function Contact({ data: { id, name, number } }) {
-//   return (
-//     <div>
-//       <div>
-//         <p>{name}</p>
-//         <p>{number}</p>
-//       </div>
-//       <button>Delete</button>
-//     </div>
-//   );
-// }
-
-export default function Contact({ data: { id, name, number }, onDelete }) {
   return (
-    <div>
-      <div>
-        <p>{name}</p>
-        <p>{number}</p>
+    <div className={css.contactCard}>
+      <div className={css.contactInfo}>
+        <p className={css.contactInfo}>{name}:</p>
+
+        <p className={css.contactInfo}>{phoneNumber}</p>
       </div>
-      <button onClick={onDelete}>Delete</button>
+      <button type="button" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 }

@@ -1,95 +1,82 @@
-// import { useState } from "react";
-// import css from './ContactForm.module.css'
+import { useId } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import css from "./ContactForm.module.css";
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-// export default function ContactForm({ onAdd }) {
-//   const [name, setName] = useState("");
-//   const [number, setNumber] = useState("");
+export default function ContactForm() {
+  const formikInitialValue = { id: "", name: "", number: "" };
+  const id = useId();
+  const nameFieldId = id + "-name";
+  const phoneNumberFieldId = id + "-phoneNumber";
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    number: Yup.string()
+      .min(3, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+  });
+  const dispatch = useDispatch();
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     onAdd({ name, number });
-//     setName("");
-//     setNumber("");
-//   };
+  const handleSubmit = (values, actions) => {
+    const newContact = {
+      name: values.name,
+      number: values.number,
+    };
+    dispatch(addContact(newContact));
+    actions.resetForm();
+  };
 
-//   return (
-//     <form onSubmit={handleSubmit} className={css.form}>
-//       <label className={css.label}>
-//         Name
-//         <input
-//           className={css.input}
-//           type="text"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//         />
-//       </label>
-//       <label className={css.label}>
-//         Number
-//         <input
-//           className={css.input}
-//           type="text"
-//           value={number}
-//           onChange={(e) => setNumber(e.target.value)}
-//         />
-//       </label>
-//       <button className={css.addContactBtn} type="submit">
-//         Add Contact
-//       </button>
-//     </form>
-//   );
-// }
+  return (
+    <Formik
+      initialValues={formikInitialValue}
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ isValid, dirty }) => (
+        <Form className={css.contactForm}>
+          <label htmlFor={nameFieldId} className={css.label}>
+            Username
+          </label>
+          <Field
+            id={nameFieldId}
+            className={css.inputField}
+            type="text"
+            name="name"
+          />
+          <ErrorMessage
+            name="name"
+            component="span"
+            className={css.errorMessage}
+          />
 
-// import styles from "./ContactForm.module.css";
-// import React from "react";
-// import { nanoid } from "nanoid";
-// import { useDispatch } from "react-redux";
-// import { addContact } from "redux/contactSlice";
+          <label htmlFor={phoneNumberFieldId} className={css.label}>
+            Phone Number
+          </label>
+          <Field
+            id={phoneNumberFieldId}
+            className={css.inputField}
+            type="text"
+            name="number"
+          />
+          <ErrorMessage
+            name="number"
+            component="span"
+            className={css.errorMessage}
+          />
 
-// export const ContactForm = () => {
-//   const dispatch = useDispatch();
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     const newObj = {
-//       id: nanoid(),
-//       name: e.target.elements.name.value,
-//       number: e.target.elements.number.value,
-//     };
-//     dispatch(addContact(newObj));
-
-//     e.target.reset();
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className={styles.form}>
-//       <label>
-//         <input
-//           className={styles.inputField}
-//           placeholder="Name"
-//           type="text"
-//           name="name"
-//           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-//           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-//           required
-//         />
-//       </label>
-
-//       <label>
-//         <input
-//           className={styles.inputField}
-//           placeholder="Phone number"
-//           type="tel"
-//           name="number"
-//           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-//           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-//           required
-//         />
-//       </label>
-
-//       <button type="submit" className={styles.button}>
-//         Add Contact
-//       </button>
-//     </form>
-//   );
-// };
+          <button
+            type="submit"
+            className={isValid && dirty ? "" : css.isDisabled}
+          >
+            Add contact
+          </button>
+        </Form>
+      )}
+    </Formik>
+  );
+}

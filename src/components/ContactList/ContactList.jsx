@@ -1,42 +1,24 @@
-// import Contact from "../Contact/Contact";
-// import { useSelector } from "react-redux";
-
-// export default function ContactList({ contacts, handleList }) {
-//   const dispatch = useDispatch();
-//   const contactsList = useSelector((state) => state.contacts.value);
-//   const handleList = () => {
-//     dispatch({
-//       type: "contacts/delete",
-
-//     });
-//   };
-//   return (
-//     <ul>
-//       {contacts.map((contact) => (
-//         <li key={contact.id}>
-//           <Contact data={contact} />
-//         </li>
-//       ))}
-//     </ul>
-//   );
-
-import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/store";
+import { useSelector } from "react-redux";
 import Contact from "../Contact/Contact";
+import css from "./ContactList.module.css";
 
 export default function ContactList() {
-  const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts.items);
+  const filter = useSelector((state) => state.filters.name);
 
-  const handleDelete = (id) => {
-    dispatch(deleteContact(id));
-  };
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter)
+  );
 
   return (
-    <ul>
-      {contacts.map((contact) => (
+    <ul className={css.contactList}>
+      {filteredContacts.map((contact) => (
         <li key={contact.id}>
-          <Contact data={contact} onDelete={() => handleDelete(contact.id)} />
+          <Contact
+            id={contact.id}
+            name={contact.name}
+            phoneNumber={contact.number}
+          />
         </li>
       ))}
     </ul>
